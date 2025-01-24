@@ -86,6 +86,12 @@ class SubscribeViewModel @Inject constructor(
         }
     }
 
+    fun changeOpenInBrowserPreset() {
+        _subscribeUiState.update {
+            it.copy(openInBrowserPreset = !_subscribeUiState.value.openInBrowserPreset)
+        }
+    }
+
     fun changeAllowNotificationPreset() {
         _subscribeUiState.update {
             it.copy(allowNotificationPreset = !_subscribeUiState.value.allowNotificationPreset)
@@ -156,6 +162,7 @@ class SubscribeViewModel @Inject constructor(
                 groupId = _subscribeUiState.value.selectedGroupId,
                 isNotification = _subscribeUiState.value.allowNotificationPreset,
                 isFullContent = _subscribeUiState.value.parseFullContentPreset,
+                isBrowser = _subscribeUiState.value.openInBrowserPreset,
             )
             hideDrawer()
         }
@@ -248,6 +255,7 @@ data class SubscribeUiState(
     val searchedFeed: FetchedFeed? = null,
     val allowNotificationPreset: Boolean = false,
     val parseFullContentPreset: Boolean = false,
+    val openInBrowserPreset: Boolean = false,
     val selectedGroupId: String = "",
     val newGroupDialogVisible: Boolean = false,
     val newGroupContent: String = "",

@@ -33,6 +33,8 @@ data class Feed(
     var isNotification: Boolean = false,
     @ColumnInfo
     var isFullContent: Boolean = false,
+    @ColumnInfo
+    var isBrowser: Boolean = false,
 ) {
 
     @Ignore
@@ -52,6 +54,7 @@ data class Feed(
         if (accountId != other.accountId) return false
         if (isNotification != other.isNotification) return false
         if (isFullContent != other.isFullContent) return false
+        if (isBrowser != other.isBrowser) return false
         if (important != other.important) return false
 
         return true
@@ -66,6 +69,7 @@ data class Feed(
         result = 31 * result + accountId
         result = 31 * result + isNotification.hashCode()
         result = 31 * result + isFullContent.hashCode()
+        result = 31 * result + isBrowser.hashCode()
         result = 31 * result + (important ?: 0)
         return result
     }

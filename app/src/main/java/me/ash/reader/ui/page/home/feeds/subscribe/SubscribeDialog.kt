@@ -129,12 +129,16 @@ fun SubscribeDialog(
                         groups = groupsState.value,
                         selectedAllowNotificationPreset = subscribeUiState.allowNotificationPreset,
                         selectedParseFullContentPreset = subscribeUiState.parseFullContentPreset,
+                        selectedOpenInBrowserPreset = subscribeUiState.openInBrowserPreset,
                         selectedGroupId = subscribeUiState.selectedGroupId,
                         allowNotificationPresetOnClick = {
                             subscribeViewModel.changeAllowNotificationPreset()
                         },
                         parseFullContentPresetOnClick = {
                             subscribeViewModel.changeParseFullContentPreset()
+                        },
+                        openInBrowserPresetOnClick = {
+                            subscribeViewModel.changeOpenInBrowserPreset()
                         },
                         onGroupClick = {
                             subscribeViewModel.selectedGroup(it)

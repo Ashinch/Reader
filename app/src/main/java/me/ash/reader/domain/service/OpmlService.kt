@@ -99,6 +99,7 @@ class OpmlService @Inject constructor(
                                     if (attachInfo) {
                                         put("isNotification", feed.isNotification.toString())
                                         put("isFullContent", feed.isFullContent.toString())
+                                        put("isBrowser", feed.isBrowser.toString())
                                     }
                                 },
                                 listOf()

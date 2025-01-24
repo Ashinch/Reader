@@ -116,6 +116,15 @@ class FeedOptionViewModel @Inject constructor(
             }
         }
     }
+    
+    fun changeOpenInBrowserPreset() {
+        viewModelScope.launch(ioDispatcher) {
+            _feedOptionUiState.value.feed?.let {
+                rssService.get().updateFeed(it.copy(isBrowser = !it.isBrowser))
+                fetchFeed(it.id)
+            }
+        }
+    }
 
     fun changeAllowNotificationPreset() {
         viewModelScope.launch(ioDispatcher) {

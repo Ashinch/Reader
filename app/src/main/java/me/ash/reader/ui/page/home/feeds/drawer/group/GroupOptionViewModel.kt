@@ -88,9 +88,28 @@ class GroupOptionViewModel @Inject constructor(
     fun showAllParseFullContentDialog() {
         _groupOptionUiState.update { it.copy(allParseFullContentDialogVisible = true) }
     }
-
+        
     fun hideAllParseFullContentDialog() {
         _groupOptionUiState.update { it.copy(allParseFullContentDialogVisible = false) }
+    }
+
+    fun allOpenInBrowser(isBrowser: Boolean, callback: () -> Unit = {}) {
+        _groupOptionUiState.value.group?.let {
+            viewModelScope.launch(ioDispatcher) {
+                rssService.get().groupOpenInBrowser(it, isBrowser)
+                withContext(mainDispatcher) {
+                    callback()
+                }
+            }
+        }
+    }
+
+    fun showAllOpenInBrowserDialog() {
+        _groupOptionUiState.update { it.copy(allOpenInBrowserDialogVisible = true) }
+    }
+
+    fun hideAllOpenInBrowserDialog() {
+        _groupOptionUiState.update { it.copy(allOpenInBrowserDialogVisible = false) }
     }
 
     fun delete(callback: () -> Unit = {}) {
@@ -201,6 +220,7 @@ data class GroupOptionUiState(
     val groups: List<Group> = emptyList(),
     val allAllowNotificationDialogVisible: Boolean = false,
     val allParseFullContentDialogVisible: Boolean = false,
+    val allOpenInBrowserDialogVisible: Boolean = false,
     val allMoveToGroupDialogVisible: Boolean = false,
     val deleteDialogVisible: Boolean = false,
     val clearDialogVisible: Boolean = false,

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.OpenInBrowser
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,6 +36,7 @@ fun FeedOptionView(
     groups: List<Group> = emptyList(),
     selectedAllowNotificationPreset: Boolean = false,
     selectedParseFullContentPreset: Boolean = false,
+    selectedOpenInBrowserPreset: Boolean = false,
     isMoveToGroup: Boolean = false,
     showGroup: Boolean = true,
     showUnsubscribe: Boolean = true,
@@ -42,6 +44,7 @@ fun FeedOptionView(
     selectedGroupId: String = "",
     allowNotificationPresetOnClick: () -> Unit = {},
     parseFullContentPresetOnClick: () -> Unit = {},
+    openInBrowserPresetOnClick: () -> Unit = {},
     clearArticlesOnClick: () -> Unit = {},
     unsubscribeOnClick: () -> Unit = {},
     onGroupClick: (groupId: String) -> Unit = {},
@@ -66,10 +69,12 @@ fun FeedOptionView(
         Preset(
             selectedAllowNotificationPreset = selectedAllowNotificationPreset,
             selectedParseFullContentPreset = selectedParseFullContentPreset,
+            selectedOpenInBrowserPreset = selectedOpenInBrowserPreset,
             showUnsubscribe = showUnsubscribe,
             notSubscribeMode = notSubscribeMode,
             allowNotificationPresetOnClick = allowNotificationPresetOnClick,
             parseFullContentPresetOnClick = parseFullContentPresetOnClick,
+            openInBrowserPresetOnClick = openInBrowserPresetOnClick,
             clearArticlesOnClick = clearArticlesOnClick,
             unsubscribeOnClick = unsubscribeOnClick,
         )
@@ -121,10 +126,12 @@ private fun EditableUrl(
 private fun Preset(
     selectedAllowNotificationPreset: Boolean = false,
     selectedParseFullContentPreset: Boolean = false,
+    selectedOpenInBrowserPreset: Boolean = false,
     showUnsubscribe: Boolean = true,
     notSubscribeMode: Boolean = false,
     allowNotificationPresetOnClick: () -> Unit = {},
     parseFullContentPresetOnClick: () -> Unit = {},
+    openInBrowserPresetOnClick: () -> Unit = {},
     clearArticlesOnClick: () -> Unit = {},
     unsubscribeOnClick: () -> Unit = {},
 ) {
@@ -167,6 +174,23 @@ private fun Preset(
             },
         ) {
             parseFullContentPresetOnClick()
+        }
+        RYSelectionChip(
+            modifier = Modifier.animateContentSize(),
+            content = stringResource(R.string.open_in_browser),
+            selected = selectedOpenInBrowserPreset,
+            selectedIcon = {
+                Icon(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .size(20.dp),
+                    imageVector = Icons.Outlined.OpenInBrowser,
+                    contentDescription = stringResource(R.string.open_in_browser),
+                    tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
+                )
+            },
+        ) {
+            openInBrowserPresetOnClick()
         }
         if (notSubscribeMode) {
             RYSelectionChip(

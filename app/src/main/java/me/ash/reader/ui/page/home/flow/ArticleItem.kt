@@ -48,6 +48,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -69,12 +70,15 @@ import me.ash.reader.infrastructure.preference.LocalFlowArticleListFeedName
 import me.ash.reader.infrastructure.preference.LocalFlowArticleListImage
 import me.ash.reader.infrastructure.preference.LocalFlowArticleListReadIndicator
 import me.ash.reader.infrastructure.preference.LocalFlowArticleListTime
+import me.ash.reader.infrastructure.preference.LocalOpenLink
+import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
 import me.ash.reader.infrastructure.preference.SwipeEndActionPreference
 import me.ash.reader.infrastructure.preference.SwipeStartActionPreference
 import me.ash.reader.ui.component.FeedIcon
 import me.ash.reader.ui.component.base.RYAsyncImage
 import me.ash.reader.ui.component.base.SIZE_1000
 import me.ash.reader.ui.component.menu.AnimatedDropdownMenu
+import me.ash.reader.ui.ext.openURL
 import me.ash.reader.ui.ext.requiresBidi
 import me.ash.reader.ui.ext.surfaceColorAtElevation
 import me.ash.reader.ui.page.settings.color.flow.generateArticleWithFeedPreview
@@ -96,6 +100,9 @@ fun ArticleItem(
 ) {
     val feed = articleWithFeed.feed
     val article = articleWithFeed.article
+    val context = LocalContext.current
+    val openLink = LocalOpenLink.current
+    val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
 
     ArticleItem(
         modifier = modifier,
@@ -107,7 +114,13 @@ fun ArticleItem(
         imgData = article.img,
         isStarred = article.isStarred,
         isUnread = isUnread,
-        onClick = { onClick(articleWithFeed) },
+        onClick = {
+            if (feed.isBrowser) {
+                context.openURL(article.link, openLink, openLinkSpecificBrowser)
+            } else {
+                onClick(articleWithFeed)
+            }
+        },
         onLongClick = onLongClick
     )
 

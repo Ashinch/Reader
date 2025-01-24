@@ -73,6 +73,7 @@ class OPMLDataSource @Inject constructor(
                             accountId = targetAccountId,
                             isNotification = outline.extractPresetNotification(),
                             isFullContent = outline.extractPresetFullContent(),
+                            isBrowser = outline.extractPresetBrowser(),
                         )
                     }
                     groupWithFeedList.addFeedToDefault(feedToAdd)
@@ -114,6 +115,7 @@ class OPMLDataSource @Inject constructor(
                                 accountId = targetAccountId,
                                 isNotification = subOutline.extractPresetNotification(),
                                 isFullContent = subOutline.extractPresetFullContent(),
+                                isBrowser = subOutline.extractPresetBrowser(),
                             )
                         }
                         groupWithFeedList.addFeed(feedToAdd)
@@ -158,6 +160,9 @@ class OPMLDataSource @Inject constructor(
 
     private fun Outline?.extractPresetFullContent(): Boolean =
         this?.attributes?.getOrDefault("isFullContent", null).toBoolean()
+
+    private fun Outline?.extractPresetBrowser(): Boolean =
+        this?.attributes?.getOrDefault("isBrowser", null).toBoolean()
 
     private fun Outline?.isDefaultGroup(): Boolean =
         this?.attributes?.getOrDefault("isDefault", null).toBoolean()

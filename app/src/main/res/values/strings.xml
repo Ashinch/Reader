@@ -52,6 +52,10 @@
     <string name="all_parse_full_content_tips">Full content parsing of all articles in the \"%1$s\" group</string>
     <string name="all_parse_full_content_toast">Full content parsing of all articles in the \"%1$s\" group</string>
     <string name="all_deny_parse_full_content_toast">No more full content parsing of all articles in the \"%1$s\" group</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="all_open_in_browser_tips">Open all articles in the \"%1$s\" group using the browser</string>
+    <string name="all_open_in_browser_toast">Open all articles in the \"%1$s\" group using the browser</string>
+    <string name="all_deny_open_in_browser_toast">No more opening of all articles in the \"%1$s\" group using the browser</string>
     <string name="clear_articles">Clear Articles</string>
     <string name="clear_articles_in_feed_toast">Cleaned all archived of articles in the \"%1$s\" feed</string>
     <string name="clear_articles_in_group_toast">Cleaned all archived of articles in the \"%1$s\" group</string>

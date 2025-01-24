@@ -100,7 +100,7 @@ class GoogleReaderRssService @Inject constructor(
 
     override suspend fun subscribe(
         feedLink: String, searchedFeed: FetchedFeed, groupId: String,
-        isNotification: Boolean, isFullContent: Boolean,
+        isNotification: Boolean, isFullContent: Boolean, isBrowser: Boolean,
     ) {
         val accountId = context.currentAccountId
         val quickAdd = getGoogleReaderAPI().subscriptionQuickAdd(feedLink)
@@ -127,6 +127,7 @@ class GoogleReaderRssService @Inject constructor(
                 accountId = accountId,
                 isNotification = isNotification,
                 isFullContent = isFullContent,
+                isBrowser = isBrowser,
             )
         )
         // TODO: When users need to subscribe to multiple feeds continuously, this makes them uncomfortable.

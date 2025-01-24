@@ -97,6 +97,7 @@ fun FeedOptionDrawer(
                     selectedAllowNotificationPreset = feedOptionUiState.feed?.isNotification
                         ?: false,
                     selectedParseFullContentPreset = feedOptionUiState.feed?.isFullContent ?: false,
+                    selectedOpenInBrowserPreset = feedOptionUiState.feed?.isBrowser ?: false,
                     isMoveToGroup = true,
                     showGroup = feedOptionViewModel.rssService.get().moveSubscription,
                     showUnsubscribe = feedOptionViewModel.rssService.get().deleteSubscription,
@@ -107,6 +108,9 @@ fun FeedOptionDrawer(
                     },
                     parseFullContentPresetOnClick = {
                         feedOptionViewModel.changeParseFullContentPreset()
+                    },
+                    openInBrowserPresetOnClick = {
+                        feedOptionViewModel.changeOpenInBrowserPreset()
                     },
                     clearArticlesOnClick = {
                         feedOptionViewModel.showClearDialog()

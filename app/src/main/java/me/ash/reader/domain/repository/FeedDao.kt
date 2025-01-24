@@ -32,6 +32,19 @@ interface FeedDao {
         groupId: String,
         isFullContent: Boolean,
     )
+    
+    @Query(
+        """
+        UPDATE feed SET isBrowser = :isBrowser
+        WHERE accountId = :accountId
+        AND groupId = :groupId
+        """
+    )
+    suspend fun updateIsBrowserByGroupId(
+        accountId: Int,
+        groupId: String,
+        isBrowser: Boolean,
+    )
 
     @Query(
         """
@@ -130,6 +143,7 @@ interface FeedDao {
                 // TODO: Consider migrating the fields to be nullable.
                 it.isNotification = feed.isNotification
                 it.isFullContent = feed.isFullContent
+                it.isBrowser = feed.isBrowser
                 update(it)
             }
         }

@@ -89,7 +89,7 @@ class FeverRssService @Inject constructor(
 
     override suspend fun subscribe(
         feedLink: String, searchedFeed: FetchedFeed, groupId: String,
-        isNotification: Boolean, isFullContent: Boolean,
+        isNotification: Boolean, isFullContent: Boolean, isBrowser: Boolean,
     ) {
         throw FeverAPIException("Unsupported")
     }
