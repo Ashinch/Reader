@@ -20,9 +20,9 @@ import rust.nostr.sdk.getNip05Profile
 import java.time.Duration
 
 sealed interface FetchedFeed {
-    fun getIconLink(): String
+    fun getIconLink(): String?
     //The function below is for compatibility with SyndFeed
-    fun getIconUrl(): String
+    fun getIconUrl(): String?
     fun getFeedLink(): String
     var title: String
     fun getFeedAuthor(): String
@@ -33,11 +33,11 @@ class SyndFeedDelegate(
     private val syndFeed: SyndFeed
 ): FetchedFeed {
 
-    override fun getIconLink(): String {
+    override fun getIconLink(): String? {
         return syndFeed.icon.link
     }
 
-    override fun getIconUrl(): String {
+    override fun getIconUrl(): String? {
         return syndFeed.icon.url
     }
 
