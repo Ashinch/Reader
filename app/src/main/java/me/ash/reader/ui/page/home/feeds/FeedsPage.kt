@@ -334,9 +334,8 @@ fun FeedsPage(
                     itemsIndexed(groupWithFeedList) { index, groupWithFeed ->
                         when (groupWithFeed) {
                             is GroupFeedsView.Group -> {
-                                Spacer(modifier = Modifier.height(16.dp))
-
                                 if (groupWithFeed.group.id != defaultGroupId || groupWithFeed.group.feeds > 0) {
+                                    Spacer(modifier = Modifier.height(16.dp))
                                     GroupItem(
                                         isExpanded = {
                                             groupsVisible.getOrPut(
