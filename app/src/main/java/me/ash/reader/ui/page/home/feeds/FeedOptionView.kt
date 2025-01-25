@@ -215,7 +215,12 @@ private fun AddToGroup(
                 }
                 Spacer(modifier = Modifier.width(10.dp))
             }
-            item { NewGroupButton(onAddNewGroup) }
+            item {
+                NewGroupButton(
+                    onAddNewGroup,
+                    Modifier,
+                )
+            }
         }
     } else {
         FlowRow(
@@ -231,15 +236,18 @@ private fun AddToGroup(
                     onGroupClick(it.id)
                 }
             }
-            NewGroupButton(onAddNewGroup)
+            NewGroupButton(
+                onAddNewGroup,
+                Modifier.align(Alignment.CenterVertically),
+            )
         }
     }
 }
 
 @Composable
-private fun NewGroupButton(onAddNewGroup: () -> Unit) {
+private fun NewGroupButton(onAddNewGroup: () -> Unit, modifier: Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(36.dp)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.surfaceVariant)
