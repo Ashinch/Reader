@@ -1,0 +1,50 @@
+name: Bug Report
+description: Something is not working as expected? Let us know how we can fix it.
+labels: [ bug, untriaged ]
+body:
+
+- type: checkboxes
+  id: reproducible
+  attributes:
+    label: Checklist
+    options:
+      - label: This error does NOT cause the app to crash.
+        required: true
+      - label: I've already searched in [exising issues](https://github.com/Ashinch/ReadYou/issues?q=is%3Aissue+) and haven't found a similar problem reported.
+        required: true
+      - label: This error can be reproduced with the same action, feed or article.
+  
+- type: dropdown
+  id: types
+  attributes:
+    label: Which category best fits this error?
+    options:
+      - Feed Sync
+      - Feed Management
+      - User Interface
+      - Others
+  validations:
+    required: true
+
+- type: input
+  id: version
+  attributes:
+    label: App version
+  validations:
+    required: true
+    
+- type: textarea
+  id: repro
+  attributes:
+    label: Reproduction steps
+    description: "How can we reproduce this bug? Please specify the account type (local, Google Reader, etc.) and, if applicable, the link to the relevant feed or article."
+    value: |
+      1. 
+      2.
+      3.
+      ...
+    render: bash
+  validations:
+    required: true
+    
+    

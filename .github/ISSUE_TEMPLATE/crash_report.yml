@@ -1,0 +1,38 @@
+name: Crash Report
+description: Tell us what happended when the app crashed or stopped working
+labels: [ bug, untriaged ]
+body:
+
+- type: checkboxes
+  id: reproducible
+  attributes:
+    label: Checklist
+    options:
+      - label: This error causes the app to crash.
+        required: true
+      - label: This error is consistently reproducible with the same action, feed or article.
+      
+- type: textarea
+  id: report
+  attributes:
+    label: Error report
+    description: "An error report page should appear after the app crashing. Please copy and paste the report here."
+    render: bash
+  validations:
+    required: true
+      
+- type: textarea
+  id: repro
+  attributes:
+    label: Reproduction steps
+    description: "How can we recreate this bug? Please specify the account type (local, Google Reader, etc.) and, if applicable, the link to the relevant feed or article."
+    value: |
+      1. 
+      2.
+      3.
+      ...
+    render: bash
+  validations:
+    required: true
+    
+    
