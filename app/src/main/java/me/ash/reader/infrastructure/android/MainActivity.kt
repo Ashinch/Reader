@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var accountDao: AccountDao
 
+    private var subscribeViewModel: SubscribeViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("RLog", "onCreate: ${ProfileInstallerInitializer().create(this)}")
@@ -87,21 +89,28 @@ class MainActivity : AppCompatActivity() {
             ) {
                 AccountSettingsProvider(accountDao) {
                     SettingsProvider {
-                        val subscribeViewModel: SubscribeViewModel = hiltViewModel()
-                        DisposableEffect(this) {
-                            val listener = Consumer<Intent> { intent ->
-                                intent.getTextOrNull()?.let {
-                                    subscribeViewModel.handleSharedUrlFromIntent(it)
-                                }
-                            }
-                            addOnNewIntentListener(listener)
-                            onDispose {
-                                removeOnNewIntentListener(listener)
-                            }
+                        val viewModel: SubscribeViewModel = hiltViewModel()
+                        subscribeViewModel = viewModel
+                        
+                        // Handle the initial intent
+                        intent?.getTextOrNull()?.let {
+                            viewModel.handleSharedUrlFromIntent(it)
                         }
-                        HomeEntry(subscribeViewModel = subscribeViewModel)
+
+                        HomeEntry(subscribeViewModel = viewModel)
                     }
                 }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent) // Store the new intent
+        // Only process if viewModel is ready
+        if (subscribeViewModel != null) {
+            intent.getTextOrNull()?.let {
+                subscribeViewModel?.handleSharedUrlFromIntent(it)
             }
         }
     }
