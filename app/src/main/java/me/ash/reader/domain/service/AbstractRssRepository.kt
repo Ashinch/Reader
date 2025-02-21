@@ -108,14 +108,19 @@ abstract class AbstractRssRepository(
         }
     }
 
-    open suspend fun sync(coroutineWorker: CoroutineWorker): ListenableWorker.Result =
+    open suspend fun sync(coroutineWorker: CoroutineWorker, group: String?, feed: String?): ListenableWorker.Result =
         supervisorScope {
             coroutineWorker.setProgress(SyncWorker.setIsSyncing(true))
             val preTime = System.currentTimeMillis()
             val preDate = Date(preTime)
             val accountId = context.currentAccountId
             val semaphore = Semaphore(16)
-            feedDao.queryAll(accountId).mapIndexed { _, feed ->
+            val feeds = when {
+                feed != null -> listOfNotNull(feedDao.queryById(feed))
+                group != null -> feedDao.queryByGroupId(accountId, group)
+                else -> feedDao.queryAll(accountId)
+            }
+            feeds.mapIndexed { _, feed ->
                 async(Dispatchers.IO) {
                     semaphore.withPermit {
                         val feedWithArticle = syncFeed(feed, preDate)
@@ -226,15 +231,15 @@ abstract class AbstractRssRepository(
         SyncWorker.cancelOneTimeWork(workManager)
     }
 
-    fun doSyncOneTime() {
-        SyncWorker.enqueueOneTimeWork(workManager)
+    fun doSyncOneTime(group: String?, feed: String?) {
+        SyncWorker.enqueueOneTimeWork(workManager, group, feed)
     }
 
     suspend fun initSync() {
         accountDao.queryById(context.currentAccountId)?.let {
             val syncOnStart = it.syncOnStart.value
             if (syncOnStart) {
-                doSyncOneTime()
+                doSyncOneTime(null, null)
             }
             if (it.syncInterval.value != SyncIntervalPreference.Manually.value) {
                 SyncWorker.enqueuePeriodicWork(

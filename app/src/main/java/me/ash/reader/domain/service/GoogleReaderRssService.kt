@@ -217,7 +217,7 @@ class GoogleReaderRssService @Inject constructor(
      * @link https://github.com/bazqux/bazqux-api?tab=readme-ov-file
      * @link https://github.com/theoldreader/api
      */
-    override suspend fun sync(coroutineWorker: CoroutineWorker): ListenableWorker.Result =
+    override suspend fun sync(coroutineWorker: CoroutineWorker, group: String?, feed: String?): ListenableWorker.Result =
         supervisorScope {
             coroutineWorker.setProgress(SyncWorker.setIsSyncing(true))
 

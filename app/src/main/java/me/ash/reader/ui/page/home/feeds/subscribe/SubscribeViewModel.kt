@@ -59,7 +59,7 @@ class SubscribeViewModel @Inject constructor(
     fun importFromInputStream(inputStream: InputStream) {
         applicationScope.launch {
             opmlService.saveToDatabase(inputStream)
-            rssService.get().doSyncOneTime()
+            rssService.get().doSyncOneTime(null, null)
         }
     }
 

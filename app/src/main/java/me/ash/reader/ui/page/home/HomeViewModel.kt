@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
 
     fun sync() {
         applicationScope.launch(ioDispatcher) {
-            rssService.get().doSyncOneTime()
+            rssService.get().doSyncOneTime(null, null)
         }
     }
 

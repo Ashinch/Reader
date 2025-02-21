@@ -105,7 +105,7 @@ class AccountViewModel @Inject constructor(
             try {
                 val rssService = rssService.get(addAccount.type.id)
                 if (rssService.validCredentials(account)) {
-                    rssService.doSyncOneTime()
+                    rssService.doSyncOneTime(null, null)
                     withContext(mainDispatcher) {
                         callback(addAccount, null)
                     }

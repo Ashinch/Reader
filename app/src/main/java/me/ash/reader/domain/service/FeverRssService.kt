@@ -136,7 +136,7 @@ class FeverRssService @Inject constructor(
      * 3. Fetch the Fever articles
      * 4. Synchronize read/unread and starred/un-starred items
      */
-    override suspend fun sync(coroutineWorker: CoroutineWorker): ListenableWorker.Result =
+    override suspend fun sync(coroutineWorker: CoroutineWorker, group: String?, feed: String?): ListenableWorker.Result =
         supervisorScope {
             coroutineWorker.setProgress(SyncWorker.setIsSyncing(true))
 

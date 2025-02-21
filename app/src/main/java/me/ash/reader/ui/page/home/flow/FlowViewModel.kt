@@ -32,9 +32,9 @@ class FlowViewModel @Inject constructor(
     val flowUiState: StateFlow<FlowUiState> = _flowUiState.asStateFlow()
     val diffMap = mutableStateMapOf<String, Diff>()
 
-    fun sync() {
+    fun sync(group: String?, feed: String?) {
         applicationScope.launch(ioDispatcher) {
-            rssService.get().doSyncOneTime()
+            rssService.get().doSyncOneTime(group, feed)
         }
     }
 
